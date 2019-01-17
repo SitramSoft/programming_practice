@@ -18,6 +18,8 @@ end do
 
 [Source](https://computing.llnl.gov/tutorials/parallel_comp/#Concepts)
 
+[Serial implementation in C](array_processing_serial.c)
+
 ## PI calculation
 The value of PI can be calculated in various ways. Consider the Monte Carlo method of approximating PI:  
 Inscribe a circle with radius r in a square with side length of 2r  
