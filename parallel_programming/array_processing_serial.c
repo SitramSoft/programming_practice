@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define ARRAY_ELEMENT_LIMIT 50u;
+#define ARRAY_ELEMENT_LIMIT 10u
+#define n 20000u
+#define m 20000u
 
-int array[1000][1000];
-int m, n;
-int sum = 0;
+int array[n][m];
+uint64_t sum = 0;
 
 /* Initialize each element in the array with a random element between 0 and ARRAY_ELEMENT_LIMIT */
 void initializeArray(void){
@@ -18,9 +19,9 @@ void initializeArray(void){
     for (i = 0; i<n; i++){
         for (j = 0; j<m; j++){
             array[i][j] = rand() % ARRAY_ELEMENT_LIMIT;
-            printf("%d ", array[i][j]);
+            //printf("%d ", array[i][j]);
         }
-        printf("\n");
+        //printf("\n");
     }
 }
 
@@ -29,13 +30,14 @@ void fnc(int a, int b){
 }
 
 int main(){
-    clock_t begin = clock();
+    struct timespec start, end;
+	uint64_t delta_us;
+	
+	clock_gettime(CLOCK_MONOTONIC, &start);
 
     /* Insert code below for measurement*/
     int i, j;
 
-    printf("What is the size of the 2-dimensional array?\n");
-    scanf("%d %d", &n, &m);
 
     initializeArray();
 
@@ -45,14 +47,13 @@ int main(){
         }
     }
 
-    printf("\nSum of array elements is %d", sum);
-
+    printf("Sum of array elements is %hu", sum);
     /* End code measurement */
+	
+    clock_gettime(CLOCK_MONOTONIC, &end);
+	delta_us = (end.tv_sec - start.tv_sec) * 1000 + (end.tv_nsec - start.tv_nsec) / 1000000;
 
-    clock_t end = clock();
-    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-
-    printf("\n\nExecution time: %g", time_spent);
+    printf("\n\nExecution time:\n%hu ms\n%hu ms\n", delta_us / 1000, delta_us % 1000);
 
     return 0;
 }
