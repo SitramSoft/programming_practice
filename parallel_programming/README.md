@@ -19,6 +19,19 @@ end do
 [Source](https://computing.llnl.gov/tutorials/parallel_comp/#Concepts)
 
 [Serial implementation in C](array_processing_serial.c)
+[Parallel implementation in C using Pthreads](array_processing_parllel_pthreads.c)
+
+### Notes
+The runtime reduction of the parallel algorithm using 10 threads compared to serial algorithm for an array of 20000 x 20000 is ~400ms on my laptop. I was expecting a bigger gain the 400ms, considering it takes almost 3 minutes on my laptop to execute the serial algorithm. Next I'm going to play around with the amount of threads to see if the gain varies.
+
+```
+Measurements for serial vs parallel implementation with 10 threads on ar array with size of 20000 x 20000
+Serial 1: 2 ms 961 ms Parallel 1: 2 ms 406 ms
+
+Serial 2: 2 ms 989 ms Parallel 2: 2 ms 557 ms
+
+Serial 3: 2 ms 981 ms Parallel 3: 2 ms 457 ms
+```
 
 ## PI calculation
 The value of PI can be calculated in various ways. Consider the Monte Carlo method of approximating PI:  
