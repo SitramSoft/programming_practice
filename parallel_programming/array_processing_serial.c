@@ -18,8 +18,9 @@ void initializeArray(void){
 
     for (i = 0; i<n; i++){
         for (j = 0; j<m; j++){
-            array[i][j] = rand() % ARRAY_ELEMENT_LIMIT;
-            //printf("%d ", array[i][j]);
+            //array[i][j] = rand() % ARRAY_ELEMENT_LIMIT;
+            array[i][j] = 1;
+			//printf("%d ", array[i][j]);
         }
         //printf("\n");
     }
@@ -42,18 +43,18 @@ int main(){
     initializeArray();
 
     for (i = 0; i<n; i++){
-        for (j = 0; j<n; j++){
+        for (j = 0; j<m; j++){
             fnc(i,j);
         }
     }
 
-    printf("Sum of array elements is %hu", sum);
+    printf("Sum of array elements is %lu", sum);
     /* End code measurement */
 	
     clock_gettime(CLOCK_MONOTONIC, &end);
 	delta_us = (end.tv_sec - start.tv_sec) * 1000 + (end.tv_nsec - start.tv_nsec) / 1000000;
 
-    printf("\n\nExecution time:\n%hu ms\n%hu ms\n", delta_us / 1000, delta_us % 1000);
+    printf("\n\nExecution time:\n%lu ms\n%lu ms\n", delta_us / 1000, delta_us % 1000);
 
     return 0;
 }

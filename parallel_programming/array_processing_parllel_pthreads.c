@@ -15,7 +15,7 @@ struct thread_data {
 	uint64_t partialSum;
 };
 
-struct thread_data thread_data_array[NR_THREADS]
+struct thread_data thread_data_array[NR_THREADS];
 
 int array[n][m];
 uint64_t sum = 0;
@@ -23,17 +23,20 @@ uint64_t sum = 0;
 void *doPartialSum(void *data){
 	int i, j;
 	
-	thread_data input = *((thread_data *)data);
+	struct thread_data *my_data;
+
+	my_data = (struct thread_data *)data;
 	
-	input.partialSum = 0;
+	my_data->partialSum = 0;
 	
-	for (i = input.start; i<
-		for(j = 0; j<n; j++) {
-			input.partialSum = input.partialSum + array[i][j];
+	for (i = my_data->start; i<my_data->end; i++) {
+		for(j = 0; j<m; j++) {
+			my_data->partialSum = my_data->partialSum + array[i][j];
 		}
 	}
 	
-	pthread_exist(NULL);
+	//printf("Thread: Thread %d done.\n", my_data->threadID);
+	pthread_exit(NULL);
 }
 
 /* Initialize each element in the array with a random element between 0 and ARRAY_ELEMENT_LIMIT */
@@ -45,8 +48,9 @@ void initializeArray(void){
 
     for (i = 0; i<n; i++){
         for (j = 0; j<m; j++){
-            array[i][j] = rand() % ARRAY_ELEMENT_LIMIT;
-            //printf("%d ", array[i][j]);
+            //array[i][j] = rand() % ARRAY_ELEMENT_LIMIT;
+            array[i][j] = 1;
+			//printf("%d ", array[i][j]);
         }
         //printf("\n");
     }
@@ -58,6 +62,8 @@ int main(){
 	pthread_t threads[NR_THREADS];
 	pthread_attr_t attr;
 	int rc;
+	int tmp_index;
+	void * status;
 	
 	clock_gettime(CLOCK_MONOTONIC, &start);
 
@@ -70,33 +76,51 @@ int main(){
     pthread_attr_init(&attr);
     pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
+	tmp_index = 0;
+	
     for (t = 0; t<NR_THREADS; t++){
-		thread_data_array[t].start = (n/NR_THREADS)*t;
-		thread_data_array[t].end = (n/NR_THREADS)*(t+1);
-		read_data_array[t].threadID = t;
+		thread_data_array[t].start = tmp_index;
+		if (tmp_index + (n/NR_THREADS) <= n) {
+			thread_data_array[t].end = tmp_index + (n/NR_THREADS);
+			tmp_index = thread_data_array[t].end;
+			//printf("Main: Thread %d index start = %d, index end = %d\n", t, thread_data_array[t].start, thread_data_array[t].end);
+		} else {
+			thread_data_array[t].end = n;
+			t = NR_THREADS;
+		}
+		
+		thread_data_array[t].threadID = t;
 		
 		rc = pthread_create(&threads[t], &attr, doPartialSum, (void *)&thread_data_array[t]);
-		
 		if (rc){
           printf("ERROR; return code from pthread_create() is %d\n", rc);
           return -1;
        }
 	}
 	
-	for (t = 0; t<NR_THREADS; t++){
-	
 	/* Free attribute and wait for the other threads */
     pthread_attr_destroy(&attr);
-
-	pthread_exit(NULL);
 	
-    printf("Sum of array elements is %hu", sum);
+	/* Retrieve the partial results from the threads */
+	for (t = 0; t<NR_THREADS; t++){
+		rc = pthread_join(threads[t], &status);
+		if (rc) {
+			printf("ERROR: return code from pthread_join() is %d\n", rc);
+			return -1;
+		}
+		
+		sum += thread_data_array[t].partialSum;
+		
+		//printf("Main: Thread %ld completed, adding partial result!\n", t);
+	}
+	
+    printf("Main: Sum of array elements is %lu", sum);
     /* End code measurement */
 	
     clock_gettime(CLOCK_MONOTONIC, &end);
 	delta_us = (end.tv_sec - start.tv_sec) * 1000 + (end.tv_nsec - start.tv_nsec) / 1000000;
 
-    printf("\n\nExecution time:\n%hu ms\n%hu ms\n", delta_us / 1000, delta_us % 1000);
+    printf("\n\nExecution time:\n%lu ms\n%lu ms\n", delta_us / 1000, delta_us % 1000);
 
-    return 0;
+    pthread_exit(NULL);
 }
