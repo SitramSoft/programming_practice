@@ -4,12 +4,12 @@ x = 0
 largest_odd_nr = 0
 while i < 10:
     i= i + 1
-    x = int(raw_input('Enter integer ' + str(i) + ': '))
+    x = int(input('Enter integer ' + str(i) + ': '))
     if ((x % 2) == 0) and (x > largest_odd_nr):
         largest_odd_nr = x
 
 if largest_odd_nr == 0:
-    print 'No odd number found from the inputed values'
+    print('No odd number found from the inputed values')
 else:
-    print 'The largest odd number from the values entered: ' + str(largest_odd_nr)
+    print('The largest odd number from the values entered: ' + str(largest_odd_nr))
     
