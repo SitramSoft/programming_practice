@@ -1,3 +1,5 @@
+# Library can be found online at https://www.pygame.org/news
+
 import pygame
 
 def main():
