@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdint.h>
 
 #define ARRAY_ELEMENT_LIMIT 10u
 #define n 20000u

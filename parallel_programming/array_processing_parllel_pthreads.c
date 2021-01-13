@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <pthread.h>
+#include <stdint.h>
 
 #define ARRAY_ELEMENT_LIMIT 10u
 #define n 20000u
