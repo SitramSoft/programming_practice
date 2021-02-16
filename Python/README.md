@@ -2,6 +2,23 @@
 
 ## **Progress**
 
+### 16.02.2021
+
+* Created support for solving challenged from [Hackarrank.com](https://www.hackerrank.com/dashboard) in python. No solutions yet added to the repo
+* I found an interesting series on [bdtechtalks](https://bdtechtalks.com/) called [AI education](https://bdtechtalks.com/tag/ai-education/). [First article](https://bdtechtalks.com/2021/02/10/grokking-deep-learning-review/) in the series contains a promising approach in self studying Deep Learning using Andrew Trusk [Grokking Deep Learning](https://www.amazon.com/Grokking-Deep-Learning-Andrew-Trask/dp/1617293709) book. The article mentions that this book doesn't need a strong mathematical background in linear algebra and calculus to start learning this field. I decided to give the book a try and see how long before I loose interest in it.
+* So far the book promises to provide an easy approach in teaching what deep learning is which will prepare me for learning one of the existing frameworks(Torch, TensorFlow, Keras and others)
+* 90% of the projects I start, something doesn't work from the first step. In this case, I get a "The folder you are executing pip from can no longer be found." when trying to install numpy with pip. I guess I'm going to start debugging this and by the time I'm done with it I will need a break from the mental exhaustion :(
+* That was easy :) Apparently I run the commands from a directory that I deleted and that's why I was getting the error above. Next step is to figure out if I need [Jupyter Notebook](https://jupyter.org/) or I can code on my code-server instance in plain Python without additional support.
+* It takes too much time to understand the benefits of [Jupyter Notebook](https://jupyter.org/) so I decided to not use it for now. Hopefully I won't regret it later on. Finally I can get back to the book. 
+* Deep learning is a subset of methods in machine learning toolbox, primarily using artificial neural networks inspired by the human brain
+* **Supervised vs unsupervised** learning -> this is about the _type of pattern_ being learned
+* **Supervised learning** is the direct imitation of a pattern between two datasets. **What you know -> supervised learning -> what you want to know**
+* **Unsupervised learning** transforms one data set into another, _which is not previously known or understood_
+* **Parametric vs nonparametric** -> this is about the _method for learning_
+* **Parametric learning** is characterized by having a fixed number of parameters
+* **Nonparametric model** is characterized by having an infinite number of parameters, determined by data
+* Page 44
+
 ### 13.10.2020
 
 * Reworked the existing python files because they were not compiling with with python 3
