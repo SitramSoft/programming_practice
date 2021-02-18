@@ -2,6 +2,14 @@
 
 ## **Progress**
 
+### 17.02.2021
+
+* The neural network outputs a prediction based on the input and the weight.
+* Th network can give false predictions then it should try to adjust the weights in order to predict more accurately the next time it sees the same input 
+* Implementing a simple neural network with a single node
+* Network sensitivity is related to the weight. If the weight is very high then even the tiniest input can create a large variation in prediction.
+* page 49
+
 ### 16.02.2021
 
 * Created support for solving challenged from [Hackarrank.com](https://www.hackerrank.com/dashboard) in python. No solutions yet added to the repo
