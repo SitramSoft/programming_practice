@@ -2,13 +2,21 @@
 
 ## **Progress**
 
+### 07.03.2021
+* 
+
+### 06.03.2021
+* Learned about weighted sum network
+* The interface for a neural network is simple. It accepts as inputs a list of information and a weights as knowledge. It outputs a prediction based on the inputs.
+* Page 34
+
 ### 17.02.2021
 
 * The neural network outputs a prediction based on the input and the weight.
 * Th network can give false predictions then it should try to adjust the weights in order to predict more accurately the next time it sees the same input 
 * Implementing a simple neural network with a single node
 * Network sensitivity is related to the weight. If the weight is very high then even the tiniest input can create a large variation in prediction.
-* page 49
+* page 27
 
 ### 16.02.2021
 
