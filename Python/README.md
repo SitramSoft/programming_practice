@@ -3,7 +3,11 @@
 ## **Progress**
 
 ### 07.03.2021
-* 
+* The book makes reference to [NumPy](https://numpy.org/doc/stable/user/index.html). I started to read the User Guide available on the website to try and get a quick overview of what the library offers.
+* The chapter starts to become difficult to follow. I decided to go trough it at a faster rate without focusing so much on taking detailed notes. Hopefully I will be able to begin building a mental image of neural networks then come back to certain chapters for details.
+* Chapter 3 which goes into detail about forward propagation is done.
+* I need to go over a few examples of NumPy dot function. I found an easy to understand explanation of dot function on matrices [here](https://www.mathsisfun.com/algebra/matrix-multiplying.html) which is worth to bookmark for the future.
+* page 48(started chapter 4)
 
 ### 06.03.2021
 * Learned about weighted sum network
