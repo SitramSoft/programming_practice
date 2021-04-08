@@ -6,7 +6,7 @@
 # - Filter by region: type 'americas' and click on 'Region of Americas'
 # - Assert if 'United States of America' is on the page
 
-# Prerequisits:
+# Prerequisites:
 #   Installing Selenium libraries - https://www.selenium.dev/documentation/en/selenium_installation/installing_selenium_libraries/
 #   Installing WebDriver binaries - https://www.selenium.dev/documentation/en/selenium_installation/installing_webdriver_binaries/
 #     Selenium requires a driver to interface with the chosen browser. 
@@ -23,6 +23,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options  
+from selenium.common.exceptions import NoSuchElementException
 
 # The url under test
 url = "https://www.who.int/"
