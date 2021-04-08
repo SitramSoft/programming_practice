@@ -2,6 +2,10 @@
 
 ## **Progress**
 
+### 13.03.2021
+* First concept in chapter 4 is about mean squared error. It's a good thing to square an error, because it makes small errors smaller and big errors bigger.
+* page 54
+
 ### 07.03.2021
 * The book makes reference to [NumPy](https://numpy.org/doc/stable/user/index.html). I started to read the User Guide available on the website to try and get a quick overview of what the library offers.
 * The chapter starts to become difficult to follow. I decided to go trough it at a faster rate without focusing so much on taking detailed notes. Hopefully I will be able to begin building a mental image of neural networks then come back to certain chapters for details.
