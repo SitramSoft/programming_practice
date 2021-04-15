@@ -1,1 +1,1 @@
-Excercises from Advanced Linux Programming book
+Exercises from Advanced Linux Programming book
