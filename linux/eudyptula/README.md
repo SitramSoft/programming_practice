@@ -24,7 +24,52 @@ If you forgot, your id is "7c1caf2f50d1".  But of course you have not
 forgotten that yet, you are better than that.
 
 ### **Solution**
-
+ - prepare the linux machine with the essential development tools and kernel headers
+```
+apt-get install build-essential linux-headers-`uname -r`
+```
+  - create empty file **Makefile** and **hello_world.c**
+  - command line to build an external module using the kbuild system is below. 
+    - **-C <path_to_kernel_source>** -> refers to the path of the kernel source directory. 
+    - **M=$PWD** -> path of the directory where the external module is located. 
+    - **Target** -> *modules*, *modules_install*, *clean*, *help*
+```
+make -C /lib/modules/`uname -r`/build M=$PWD [target]
+```
+  - module name and what files to use to build it is specified in either a "Kbuild" or "Makefile" using the syntax below:
+```
+obj-m := <module_name>.o
+<module_name>-y := <src1>.o <src2>.o ...
+```
+  - MODULE_LICENSE can be set to a variety of values in the source code. A full list can be obtained running the command:
+```
+grep "MODULE_LICENSE" -B 27 /usr/src/linux-headers-`uname -r`/include/linux/module.h
+```
+  - **printk** is used instead of **printf** with a KERN_INFO parameter without a comma. The kernel sorts this out inside the printk function to save stack memory.
+  - inserting the module in the kernel
+```
+sudo insmod <module_name>.ko
+```
+  - checking the kernel log for outputs from the module
+```
+  sudo dmesg
+```
+  - checking if the module is loaded in kernel
+```
+  lsmod | grep "<module_name>"
+```
+  - removing the module from the kernel
+```
+sudo rmmod <module_name>
+```
+  - in order to automate the testing of a kernel module, a make rule can be used
+```
+	sudo dmesg -C
+	sudo insmod <module_name>.ko
+	sudo rmmod <module_name>.ko
+	sudo dmesg
+```
+  - passing the kernel version to the make file is done using one of the two [Override Directive](http://www.gnu.org/software/make/manual/make.html#Override-Directive) `override_variable = value` or `override_variable := value`. To append more text to a variable defined on the command line use `override_variable += text`
 ## **Task 2**
 ### **Challenge**
 Now that you have written your first kernel module, it's time to take
