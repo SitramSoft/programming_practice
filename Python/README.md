@@ -2,8 +2,12 @@
 
 ## **Progress**
 
+### 28.04.2021
+* 
+
 ### 07.04.2021
 * Learned about web scrapping with [Selenium](https://www.selenium.dev/documentation/en/getting_started/) and a webdriver for chrome. This can be done in a headless environment, like the Ubuntu server where I do most of my development but best is to run it in a desktop environment.
+
 ### 13.03.2021
 * First concept in chapter 4 is about mean squared error. It's a good thing to square an error, because it makes small errors smaller and big errors bigger.
 * page 54
@@ -17,7 +21,7 @@
 
 ### 06.03.2021
 * Learned about weighted sum network
-* The interface for a neural network is simple. It accepts as inputs a list of information and a weights as knowledge. It outputs a prediction based on the inputs.
+* The interface for a neural network is simple. It accepts as inputs a list of information and a weights as knowledge. It outputs a prediction based on the inpus.
 * Page 34
 
 ### 17.02.2021
