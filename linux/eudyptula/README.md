@@ -112,6 +112,70 @@ If you forgot, your id is "7c1caf2f50d1".  But why do I repeat myself?
 Of course you know your id, you made it through the first task just fine
 with it.
 ### **Solution**
+ - [Requirements for building and using a Kernel](http://files.kroah.com/lkn/lkn_pdf/ch02.pdf)
+    - checking **compiler** version is done with `gcc --version`
+    - checking **linker** version is done with `ld -v`
+    - checking **make** version is done with `make --version`
+    - **util-linux** package is a collection of small utilities that do a whole range of tasks. Checking the version is done with `fdformat --version`
+    - **module-init-tools** package is needed for Linux kernel modules. Checking the version is done with `depmod -V`
+    To work with any of the ext2/ext3/ext4 filesystems, **e2fsprogrs** package must be installed. Checking the version is done with `tune2fs`
+    - For managing and monitoring processes, **procps** package has to be installed. Checking the version is done with `ps --version`
+  - [Git repositories](https://git.kernel.org/)
+     - [torvalds/linux.git](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/): the main tree with the latest Linux releases. Used to define Release Candidate version (-rc). This tree changes only when a new release (or Release Candidate) is created each 7 to 10 days approximately. Maintained by Linus Torvalds
+     - [stable/linux.git](https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/): Linux's stable tree repository. Used to store and update stable releases over time. The main difference between this repository and the main Linux tree is that this repository's releases will be updated (mainly security updates and bugfixes) over time if the related release is supported.
+      - [next/linux-next.git](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/): All the different subsystem trees and their modifications are merged into it each day. It contains the latest, most complete Linux kernel tree.
+      - [gregkh/staging.git](https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging.git/): This tree stores all the modifications applied to the staging drivers (released drivers but isolated from the others as they are not finished yet). This tree is a nice source of contributions as all these drivers need to be cleaned up and adapted to the latest kernel's API. Maintained by Greg Kroah-Hartman.
+  - Linux Kernel configuration
+    - `make defconfig`: create a default .config file with all the options that suits your current architecture.
+    - `make config` / `make nconfig` / `make menuconfig`: used to interactively change kernel's options.
+    - `make oldconfig`: create a .config file using the one currently available. Useful if you want to build a new kernel with all the options used in an older one.
+    - `make randconfig`: randomly enable / disable options. Used to test purposes.
+    - `make tinyconfig`: create the tiniest kernel possible.
+    - `make kvmconfig`: update the current configuration with KVM support
+    - `make olddefconfig`: Use old `.config` and will answer default values to all new options, making `.config` applicable to new kernel
+    - `make localmodconfig`: Disable in `.config` all modules that are not currently loaded on the machine, using `lsmod` output
+  - Building the Linux Kernel
+    - `make`: build the kernel using the configuration selected
+    - `make -jx`:build the kernel in a multithreaded way for every subdirectory in the kernel tree. It is best to use a number that matches twice the number of processors in the system.
+    - Building only a portion of the Kernel
+      - `make <directory_or_file>`: build a specific subdirectory or a single file
+      - `make M=<directory_or_file>`: Build all the needed files in that directory and link the file module images.
+      - Final kernel image is not build using either of the building ways above. `make` command needs to be executed at the end.
+    - `make O=<path>`: control where the output of the kernel build
+    - `make ARCH=<architecture> defconfig`: Get the default kernel configuration for a specific architecture
+    - `make ARCH=<architecture> CROSS_COMPILE=<cross_compile_toolchain>`: Build the Linux Kernel with for a specific architecture with it's associated toolchain
+    - `make CC=<compiler>`: Change what the build system uses as a compiler. Example `distcc` or `ccache` to reduce the time it takes to build the kernel
+  - [Install and Boot from a build Kernel](http://files.kroah.com/lkn/lkn_pdf/ch05.pdf)
+    - `sudo make modules_install`: install all the modules build and place them in */lib/modules/kernel_version* for the new kernel to find them.
+    - `make install`
+      - Automatic installation using `installkernel` script from package `mkinitrd`
+        - check that the kernel is successfully built
+        - install the static kernel portion into the /boot directory, renaming the file based on the kernel version
+        - create initial ramdisk images with the modules that have been installed 
+        - notify bootloader program about the new kernel to be added in the booting menu. Older kernel images are not overwritten and can be selected from booting menu.
+        - reboot the system
+      - Manual installation
+        - `make kernelversion`: Obtain the version of the built kernel
+        - `cp arch/<arch>/boot/bzImage /boot/bzImage-KERNEL_VERSION`: copy kernel image 
+        - `cp System.map /boot/System.map-KERNEL_VERSION` copy System.map file
+        - Modify the bootloader for the new kernel
+          - LILO
+            - `ls /etc/lilo.conf`: check if LILO bootloader is installed
+            - TODO: add steps for introducing a new kernel in the bootloader
+          - GRUB
+            - `ls -F /boot | grep grub`: check if GRUB bootloader is installed
+            - GRUB configuration can be edited in `/etc/default/grub` on Debian. Make sure to run `sudo update-grub` afterwards to update `/boot/grub/grub.cfg`
+            - TODO: add steps for introducing a new kernel in the bootloader
+      - Remove compiled kernel from locations below on Ubuntu and update grub configuration with `sudo update-grub2`
+
+            /boot/vmlinuz*KERNEL-VERSION*
+            /boot/initrd.img*KERNEL-VERSION*
+            /boot/System.map*KERNEL-VERSION*
+            /boot/config-*KERNEL-VERSION*
+            /lib/modules/*KERNEL-VERSION*/
+            /var/lib/initramfs-tools/*KERNEL-VERSION*/
+      - `dpkg --list | egrep -i --color 'linux-image|linux-headers|linux-modules' | awk '{ print $2 }'`: List Ubuntu kernels installed 
+      - `sudo apt purge linux-*-5.8.0-48-*`: example of removing all packages related to a certain kernel version. Review the packages before confirming to be removed.
 
 ## **Task 3**
 ### **Challenge**
@@ -139,6 +203,18 @@ If you forgot, your id is "7c1caf2f50d1".  Surely I don't need to keep
 saying this right?  I know, _you_ wouldn't forget, but someone else, of
 course they would, so I'll just leave it here for those "others".
 ### **Solution**
+  - If Linux kernel images are being built with "-dirty" on the end of the version string, this simply means that modifications in the source directory have not been committed. Use git status to check for uncommitted files
+  - The steps needed to find the driver for a device that has a working driver already bound to it:
+    - Find the proper sysfs class device that the device is bound to.Network
+devices are listed in /sys/class/net and tty devices in /sys/class/tty.Other types of devices are listed in other directories in /sys/class, depending on the type of device.
+    - Trace through the sysfs tree to find the module name that controls this
+device.It will be found in the /sys/class/class_name/device_name/device/driver/module, and can be displayed using the readlink and basename applications:
+
+          $ basename `readlink /sys/class/class_name/device_name/device/driver/module`
+    - Search the kernel Makefiles for the CONFIG_ rule that builds this module name by using find and grep:
+
+          $ find -type f -name Makefile | xargs grep module_name
+    - Search in the kernel configuration system for that configuration value and go to the location in the menu that it specifies to enable that driver to be built.
 
 ## **Task 4**
 ### **Challenge**
