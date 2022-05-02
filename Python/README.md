@@ -6,6 +6,8 @@
 
 * [languageSummary](languageSummary.md) file created with a summary of Python synthax.
 * fixed markdown lint warnings.
+* I found [Neetcode 150](https://neetcode.io/), a list of algorithmic coding problems based on the famous Blind 75 list. I will try to use as programming language Python to have some practice and go over as many of the 150 problems from the last as possible.
+* First champter I started is **Arrays & Hashing**
 
 ### 07.04.2021
 

@@ -30,11 +30,19 @@ person['name']
 kids = ('Nathan', 'Daniel')
 ```
 
-* sets -> a unique list. In example below if we print `foods` it will show only `{'Ice Cream', 'Pizza', 'Tacos'}`
+* sets
+
+A unique list. In example below if we print `foods` it will show only `{'Ice Cream', 'Pizza', 'Tacos'}`
 
 ```python
-foods = {'Pizza', 'Tacos', 'Ice Cream', 'Pizza', 'Pizza', 'Tacos'}
+ foods = {'Pizza', 'Tacos', 'Ice Cream', 'Pizza', 'Pizza', 'Tacos'}
 ```
+
+Elements can be added with `add()` method.
+
+Multuple elements are added with `update(x, x, x, ...)` method.
+
+Removing elements from a set is done with `remove()` or `discard()` method. `discard()` doesn't trhour a `KeyError` exception if the element is not in the set.
 
 * boolean
 
@@ -48,7 +56,7 @@ is _adult = True
 # Indexing
 
 * Strings -> Individual items can be accessed with `name[x]` or `name[start:end]`. `start` or `end` can be skipped, but the `:` must be kept.
-* Listst -> Individual items can be accessed with `name[x]` or `name[start:end]`. `start` or `end` can be skipped, but the `:` must be kept.
+* Lists -> Individual items can be accessed with `name[x]` or `name[start:end]`. `start` or `end` can be skipped, but the `:` must be kept.
 
 # Comments
 
@@ -138,12 +146,12 @@ else:
 ```
 
 * Comparison operators
-  * `==` - equals
-  * `>=` - greater then or equal
-  * `<=` - less then or equal
-  * `>` - greater
-  * `<` - less
-  * `!=` - is not equal
+  * `==` equals
+  * `>=` greater then or equal
+  * `<=` less then or equal
+  * `>` greater
+  * `<` less
+  * `!=` is not equal
 
 * Assignment operators
   * `=` - c = a + b assigns value of a + b into c
