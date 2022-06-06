@@ -193,6 +193,13 @@ else:
 
 # For loops
 
+* general synthax
+
+```python
+for x in range(0, 3):
+        print('%d * %d = %d' % (x, x, x*x))
+```
+
 * `in` operator goes to iterables like: set, tuple, string, list
 
 ```python
