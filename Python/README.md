@@ -2,12 +2,16 @@
 
 ## **Progress**
 
+### 27.04.2023
+
+* Started [Python Django Web Framework - Full Course for Beginners](https://www.youtube.com/watch?v=F5mRW0jo-U4) from [freeCodeCamp.org](https://www.freecodecamp.org/) - [Progress](Django/README.md)
+
 ### 02.05.2022
 
-* [languageSummary](languageSummary.md) file created with a summary of Python synthax.
+* [languageSummary](languageSummary.md) file created with a summary of Python syntax.
 * fixed markdown lint warnings.
 * I found [Neetcode 150](https://neetcode.io/), a list of algorithmic coding problems based on the famous Blind 75 list. I will try to use as programming language Python to have some practice and go over as many of the 150 problems from the last as possible.
-* First champter I started is **Arrays & Hashing**
+* First chapter I started is **Arrays & Hashing**
 
 ### 07.04.2021
 
